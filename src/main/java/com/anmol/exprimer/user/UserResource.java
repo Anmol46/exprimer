@@ -23,6 +23,19 @@ public class UserResource {
 		this.blogRepository = blogRepository;
 	}
 	
+	@GetMapping("/getUserById")
+	public User getUserById(UUID userid){
+		Optional<User> user = userRepository.findById(userid);
+		
+		if(user.isEmpty()) {
+			throw new UserNotFoundException(userid);
+		}
+		
+		else {
+			return user.get();
+		}
+	}
+	
 	@GetMapping("/users")
 	public List<User> getUsers(){
 		return userRepository.findAll();
@@ -34,7 +47,11 @@ public class UserResource {
 		Optional<User> user = userRepository.findById(userid);
 		
 		if(user.isEmpty()) {
-			
+			throw new UserNotFoundException(userid);
+		}
+		
+		else {
+			return user.get().getBlogs();
 		}
 	}
 
