@@ -11,7 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 
-@Entity(name = "blogdb")
+@Entity(name = "blog")
 public class Blog {
 
 	@Id

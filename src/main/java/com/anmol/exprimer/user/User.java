@@ -1,5 +1,10 @@
 package com.anmol.exprimer.user;
 
+import java.util.List;
+import java.util.UUID;
+
+import com.anmol.exprimer.blog.Blog;
+import com.anmol.exprimer.comment.Comment;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
@@ -8,12 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
-import java.util.List;
-import java.util.UUID;
-
-import com.anmol.exprimer.blog.Blog;
-
-@Entity(name = "userdb")
+@Entity(name = "user")
 public class User {
 
 	@Id
@@ -27,6 +27,10 @@ public class User {
 	@OneToMany(mappedBy="user")
 	@JsonIgnore
 	private List<Blog> blogs;
+	
+	@OneToMany(mappedBy="user")
+	@JsonIgnore
+	private List<Comment> comments;
 	
 	public UUID getId() {
 		return id;
@@ -60,6 +64,14 @@ public class User {
 		this.blogs = blogs;
 	}
 	
+	public List<Comment> getComment() {
+		return comments;
+	}
+
+	public void setComment(List<Comment> comments) {
+		this.comments = comments;
+	}
+
 	public User() {
 		
 	}
