@@ -1,19 +1,26 @@
 package com.anmol.exprimer.comment;
 
+import com.anmol.exprimer.blog.Blog;
 import com.anmol.exprimer.user.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToOne;
 
 @Entity(name = "comment")
 public class Comment {
 
 	private String content;
 	
-	@OneToMany(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonIgnore
 	private User user;
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonIgnore
+	private Blog blog;
+
 	public String getContent() {
 		return content;
 	}
@@ -34,8 +41,9 @@ public class Comment {
 		
 	}
 	
-	public Comment(String content, User user) {
+	public Comment(String content, User user, Blog blog) {
 		this.content = content;
 		this.user = user;
+		this.blog = blog;
 	}
 }
